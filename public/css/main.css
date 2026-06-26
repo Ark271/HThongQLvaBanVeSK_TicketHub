@@ -1,0 +1,242 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body.layout-root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    color: #1f2937;
+}
+
+.layout-content {
+    flex: 1;
+}
+
+/* NAVBAR */
+
+.navbar {
+    background: linear-gradient(90deg, #0f172a, #1e293b);
+    padding: 14px 0;
+}
+
+.navbar-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff !important;
+    letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link {
+    color: #e5e7eb !important;
+    font-size: 15px;
+    margin-left: 16px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #facc15 !important;
+}
+
+/* HERO / MAIN SECTION */
+
+.hero-section {
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 80px 0 60px; /* ❗ giảm padding dưới */
+}
+
+.hero-section h1 {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.hero-section p {
+    font-size: 16px;
+    margin-top: 12px;
+    color: #4b5563;
+}
+
+.hero-section .btn-warning {
+    background-color: #fbbf24;
+    border: none;
+    padding: 12px 26px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.hero-section .btn-warning:hover {
+    background-color: #f59e0b;
+}
+
+/* HERO CAROUSEL  */
+
+.hero-carousel {
+    max-width: 420px;
+    margin: auto;
+}
+
+.hero-carousel .carousel-item {
+    text-align: center;
+}
+
+.hero-img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+
+/* FOOTER */
+
+.site-footer {
+    background: linear-gradient(180deg, #0f172a, #020617);
+    color: #cbd5e1;
+    padding: 60px 0 25px;
+    margin-top: 0; /* ❗ QUAN TRỌNG */
+}
+
+.footer-title {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.footer-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #cbd5e1;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    color: #fbbf24;
+}
+
+.footer-divider {
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 30px 0 15px;
+}
+
+.footer-copy {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+/* FLASH MESSAGE */
+
+#flash-message {
+    max-width: 500px;
+    margin: 20px auto 0 auto; /* căn giữa */
+
+    text-align: center;
+    font-weight: 500;
+
+    border-radius: 10px;
+    padding: 12px 20px;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+
+    animation: slideDown 0.4s ease;
+}
+
+/* Hiệu ứng xuất hiện */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* PROFILE - thanh cuộn */
+
+.events-scroll-box {
+    max-height: 260px;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding-right: 8px;
+}
+
+.events-scroll-box table {
+    margin-bottom: 0;
+}
+
+.events-scroll-box thead th {
+    position: static;
+}
+
+.events-scroll-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.events-scroll-box::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.events-scroll-box::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+.events-scroll-box::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+
+/* DASHBOARD PAGINATION */
+
+.dashboard-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.dashboard-pagination nav {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 8px;
+}
+
+.dashboard-pagination nav > div {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 8px;
+}
+
+.dashboard-pagination .pagination {
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.dashboard-pagination p {
+    margin: 0;
+    text-align: center;
+    color: #6c757d;
+    font-size: 14px;
+}
