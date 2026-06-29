@@ -55,6 +55,19 @@
                                  alt="Banner 3">
                         </div>
 
+                        @foreach ($featuredEvents as $event)
+                            <div class="carousel-item">
+                                <a href="{{ route('events.show', $event->id) }}"
+                                class="featured-event-slide">
+
+                                    <img src="{{ asset('storage/' . $event->image) }}"
+                                        class="hero-img"
+                                        alt="{{ $event->title }}">
+
+                                </a>
+                            </div>
+                        @endforeach
+
                     </div>
 
                 </div>

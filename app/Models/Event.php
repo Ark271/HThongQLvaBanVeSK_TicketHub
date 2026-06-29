@@ -25,11 +25,6 @@ class Event extends Model
         'end_datetime'   => 'datetime',
     ];
 
-    public function participants()
-    {
-        return $this->hasMany(Participant::class);
-    }
-
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
