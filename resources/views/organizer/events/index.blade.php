@@ -21,6 +21,7 @@
                 <th>Tên sự kiện</th>
                 <th>Bắt đầu</th>
                 <th>Kết thúc</th>
+                <th>Người tạo</th>
                 <th>Hành động</th>
             </tr>
         </thead>
@@ -28,10 +29,21 @@
         <tbody>
         @forelse($events as $index => $event)
             <tr>
-                <td>{{ $index + 1 }}</td>
+                <td>{{ $events->firstItem() + $index }}</td>
                 <td>{{ $event->title }}</td>
                 <td>{{ $event->start_datetime?->format('d/m/Y H:i') }}</td>
                 <td>{{ $event->end_datetime?->format('d/m/Y H:i') }}</td>
+                <td>
+                    @if ($event->creator)
+                        <div>{{ $event->creator->name }}</div>
+
+                        <small class="text-muted">
+                            {{ ucfirst($event->creator->role) }}
+                        </small>
+                    @else
+                        <span class="text-muted">Không xác định</span>
+                    @endif
+                </td>
                 <td>
                     <a href="{{ route('organizer.events.show', $event) }}" class="btn btn-sm btn-info">
                         Xem
@@ -52,7 +64,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="5" class="text-center">Bạn chưa tạo sự kiện nào</td>
+                <td colspan="6" class="text-center">Bạn chưa tạo sự kiện nào</td>
             </tr>
         @endforelse
         </tbody>

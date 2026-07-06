@@ -16,11 +16,12 @@ class OrganizerEventController extends Controller
      */
     public function index()
     {
-        $events = Event::where('user_id', auth()->id())
+        $events = Event::with('creator')
+            ->where('user_id', auth()->id())
             ->orderBy('start_datetime', 'desc')
             ->paginate(10);
 
-        return view('organizer.events.index', compact('events'));
+    return view('organizer.events.index', compact('events'));
     }
 
     /**
