@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\AdminController;
@@ -44,11 +43,6 @@ Route::get('/events', [EventController::class, 'index'])
 // Chi tiết sự kiện
 Route::get('/events/{id}', [EventController::class, 'show'])
     ->name('events.show');
-
-// Đăng ký tham gia / mua vé
-Route::post('/participants', [ParticipantController::class, 'store'])
-    ->middleware('auth')
-    ->name('participants.store');
 
 // Trang cá nhân (TÀI KHOẢN)
 Route::middleware('auth')->group(function () {
