@@ -13,7 +13,12 @@ class EventController extends Controller
 
     public function index()
     {
-        $events = Event::orderBy('start_datetime', 'asc')->paginate(3);
+         $events = Event::where('end_datetime', '>=', now())
+        ->whereHas('tickets', function ($query) {
+            $query->where('quantity', '>', 0);
+        })
+        ->orderBy('start_datetime', 'asc')
+        ->paginate(3);
 
         return view('events.index', compact('events'));
     }

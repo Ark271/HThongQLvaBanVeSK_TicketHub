@@ -14,7 +14,7 @@
                     class="event-thumbnail">
             @endif
             <p>
-                 {{ \Carbon\Carbon::parse($event->start_datetime)->format('d/m/Y H:i') }}
+                 {{ \Carbon\Carbon::parse($event->start_datetime)->format('d/m/Y H:i') }} - {{ \Carbon\Carbon::parse($event->end_datetime)->format('d/m/Y H:i') }}
             </p>
             <p> {{ $event->location }}</p>
 
@@ -23,6 +23,15 @@
 
         {{-- BÊN PHẢI: CHỌN VÉ --}}
         <div class="col-md-5">
+            @if (session('error'))
+                <div class="alert alert-danger auto-dismiss-alert">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+
+            @if (\Carbon\Carbon::now()->lte(\Carbon\Carbon::parse($event->end_datetime)))
+
             <form action="{{ route('vnpay.payment') }}" method="POST">
                 @csrf
 
@@ -38,18 +47,26 @@
                         Giá: {{ number_format($ticket->price) }}đ <br>
                         Còn lại: {{ $ticket->quantity }}
 
-                        <input
-                            type="text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            name="tickets[{{ $ticket->id }}]"
-                            min="0"
-                            max="{{ $ticket->quantity }}"
-                            value="0"
-                            class="form-control mt-2 ticket-qty"
-                            data-price="{{ $ticket->price }}"
-                            placeholder="Nhập số lượng vé"
-                        >
+                        @if ($ticket->quantity > 0)
+                            <input type="text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                name="tickets[{{ $ticket->id }}]"
+                                value="{{ old('tickets.' . $ticket->id, 0) }}"
+                                class="form-control mt-2 ticket-qty"
+                                data-price="{{ $ticket->price }}"
+                                max="{{ $ticket->quantity }}"
+                                placeholder="Nhập số lượng vé">
+                        @else
+                            <input type="text"
+                                value="0"
+                                class="form-control mt-2"
+                                disabled>
+
+                            <small class="text-danger">
+                                Loại vé này đã hết.
+                            </small>
+                        @endif
                     </div>
                 @endforeach
 
@@ -64,6 +81,20 @@
                     Thanh toán VNPAY
                 </button>
             </form>
+            @else
+                <div class="alert alert-danger">
+                    <strong>Sự kiện đã kết thúc.</strong>
+
+                    <div class="mt-1">
+                        Thời gian kết thúc:
+                        {{ \Carbon\Carbon::parse($event->end_datetime)->format('d/m/Y H:i') }}
+                    </div>
+
+                    <div>
+                        Bạn không thể đặt vé cho sự kiện này.
+                    </div>
+                </div>
+            @endif
         </div>
 
         <script>
@@ -110,4 +141,22 @@
 
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alerts = document.querySelectorAll('.auto-dismiss-alert');
+
+        alerts.forEach(function (alert) {
+            setTimeout(function () {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = '0';
+
+                setTimeout(function () {
+                    alert.remove();
+                }, 500);
+            }, 3000);
+        });
+    });
+</script>
+
 @endsection

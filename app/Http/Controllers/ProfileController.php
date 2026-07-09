@@ -15,7 +15,7 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('tab', 'info');
-        $user = auth()->user();
+        $user = Auth::user();
 
         $participants = collect();
 

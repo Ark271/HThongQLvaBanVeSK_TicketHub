@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUserController extends Controller
 {
@@ -21,7 +22,7 @@ class AdminUserController extends Controller
         ]);
 
         // Không cho admin tự hạ quyền chính mình
-        if (auth()->id() === $user->id && $request->role !== 'admin') {
+        if (Auth::id() === $user->id && $request->role !== 'admin') {
             return back()->with('error', 'Bạn không thể tự hạ quyền admin của chính mình.');
         }
 
@@ -34,7 +35,7 @@ class AdminUserController extends Controller
     public function toggleActive(User $user)
     {
         // Không cho admin tự khóa chính mình
-        if (auth()->id() === $user->id) {
+        if (Auth::id() === $user->id) {
             return back()->with('error', 'Bạn không thể tự khóa tài khoản của chính mình.');
         }
 
@@ -47,7 +48,7 @@ class AdminUserController extends Controller
     public function destroy(User $user)
     {
         // Không cho admin tự xóa chính mình
-        if (auth()->id() === $user->id) {
+        if (Auth::id() === $user->id) {
             return back()->with('error', 'Bạn không thể tự xóa tài khoản của chính mình.');
         }
 

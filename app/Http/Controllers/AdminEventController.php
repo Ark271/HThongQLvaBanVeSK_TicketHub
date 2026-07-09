@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class AdminEventController extends Controller
@@ -133,7 +134,7 @@ class AdminEventController extends Controller
         }
 
         $event = Event::create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'title' => $request->title,
             'start_datetime' => Carbon::parse($request->start_datetime),
             'end_datetime' => Carbon::parse($request->end_datetime),

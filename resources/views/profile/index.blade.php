@@ -198,7 +198,7 @@
 
                                                     <p>
                                                         <strong>Thời gian:</strong>
-                                                        {{ \Carbon\Carbon::parse($event->start_datetime)->format('d/m/Y H:i') }}
+                                                        {{ \Carbon\Carbon::parse($event->start_datetime)->format('d/m/Y H:i') }} - {{ \Carbon\Carbon::parse($event->end_datetime)->format('d/m/Y H:i') }}
                                                     </p>
 
                                                     <p>

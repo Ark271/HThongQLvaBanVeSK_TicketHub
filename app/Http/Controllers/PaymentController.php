@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Ticket;
@@ -21,7 +22,19 @@ class PaymentController extends Controller
             'tickets' => 'required|array',
         ]);
 
-        $order = DB::transaction(function () use ($request) {
+        $event = Event::findOrFail($request->event_id);
+
+        if (now()->greaterThan($event->end_datetime)) {
+            return redirect()
+                ->route('events.show', $event->id)
+                ->with('error', 'Sự kiện đã kết thúc, không thể đặt vé.');
+        }
+
+        $order = DB::transaction(function () use ($request, $event) {
+            if (now()->greaterThan($event->end_datetime)) {
+                abort(400, 'Sự kiện đã kết thúc, không thể đặt vé.');
+            }
+
             $totalAmount = 0;
 
             $order = Order::create([

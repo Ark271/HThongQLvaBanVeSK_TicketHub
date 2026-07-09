@@ -8,12 +8,13 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Event;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Support\Facades\Auth;
 
 class OrganizerController extends Controller
 {
     public function dashboard()
     {
-        $organizerId = auth()->id();
+        $organizerId = Auth::id();
 
         $dateFrom = request('date_from');
         $dateTo = request('date_to');

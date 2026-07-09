@@ -8,6 +8,7 @@ use App\Models\Ticket;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class OrganizerEventController extends Controller
 {
@@ -17,7 +18,7 @@ class OrganizerEventController extends Controller
     public function index()
     {
         $events = Event::with('creator')
-            ->where('user_id', auth()->id())
+            ->where('user_id', Auth::id())
             ->orderBy('start_datetime', 'desc')
             ->paginate(10);
 
@@ -60,7 +61,7 @@ class OrganizerEventController extends Controller
         }
 
         $event = Event::create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'title' => $request->title,
             'start_datetime' => Carbon::parse($request->start_datetime),
             'end_datetime' => Carbon::parse($request->end_datetime),
@@ -96,7 +97,7 @@ class OrganizerEventController extends Controller
     {
         $event = Event::with('tickets')->findOrFail($id);
 
-        if ($event->user_id !== auth()->id()) {
+        if ($event->user_id !== Auth::id()) {
             abort(403);
         }
 
@@ -109,7 +110,7 @@ class OrganizerEventController extends Controller
     {
         $event = Event::with('tickets')->findOrFail($id);
 
-        if ($event->user_id !== auth()->id()) {
+        if ($event->user_id !== Auth::id()) {
             abort(403);
         }
 
@@ -123,7 +124,7 @@ class OrganizerEventController extends Controller
     {
         $event = Event::with('tickets')->findOrFail($id);
 
-        if ($event->user_id !== auth()->id()) {
+        if ($event->user_id !== Auth::id()) {
             abort(403);
         }
 
@@ -191,7 +192,7 @@ class OrganizerEventController extends Controller
      */
     public function destroy(Event $event)
     {
-        if ($event->user_id !== auth()->id()) {
+        if ($event->user_id !== Auth::id()) {
             abort(403);
         }
 

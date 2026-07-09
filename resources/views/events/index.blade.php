@@ -13,7 +13,10 @@
 
                 <div>
                     <div class="text-muted small">
-                        {{ \Carbon\Carbon::parse($event->start_date)->format('d/m/Y') }}
+                        Bắt đầu:
+                        {{ \Carbon\Carbon::parse($event->start_datetime)->format('d/m/Y H:i') }}
+                         - Kết thúc:
+                        {{ \Carbon\Carbon::parse($event->end_datetime)->format('d/m/Y H:i') }}
                     </div>
 
                     <h5 class="mb-1 text-white">
